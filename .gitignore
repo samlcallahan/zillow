@@ -3,5 +3,3 @@ env.py
 __pycache__
 .ipynb_checkpoints/
 .vscode/
-mock_assessment.*
-checkbook_log.txt
