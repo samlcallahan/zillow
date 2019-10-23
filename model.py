@@ -11,13 +11,6 @@ from pydataset import data
 import warnings
 warnings.filterwarnings('ignore')
 
-tips = data('tips')
-
-bill = tips['total_bill']
-tip = tips['tip']
-regr = ols('tip ~ total_bill', data=tips).fit()
-tips['yhat'] = regr.predict(tips['total_bill'])
-
 def plot_residuals(x, y, dataframe):
     sns.residplot(x, y, data=dataframe)
     plt.show()

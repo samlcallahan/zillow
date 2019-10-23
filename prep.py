@@ -36,13 +36,26 @@ sns.boxplot(zillow.beds)
 sns.boxplot(zillow.baths)
 sns.boxplot(zillow.sqft)
 sns.boxplot(zillow.value)
-sns.boxplot(zillow.tax)
 
-# Drop the one with 35k square feet
-zillow.drop(zillow[zillow.sqft > 30000].index, inplace=True)
+# Drop 0 baths or 0 beds
+no_beds_or_baths = zillow[(zillow.beds < 1) | (zillow.baths == 0)]
+zillow.drop(no_beds_or_baths.index, inplace=True)
 
-# Store expensive homes elsewhere
-millions = zillow[zillow.value > 1000000]
+# Drop more than 7 beds
+over_7_beds = zillow[zillow.beds > 7]
+zillow.drop(over_7_beds.index, inplace=True)
+
+#Drop more than 4.5 baths
+over_4ish_baths = zillow[zillow.baths > 4.5]
+zillow.drop(over_4ish_baths.index, inplace=True)
+
+# Drop the tiny and huge properties
+tiny_props = zillow[zillow.sqft < 300]
+zillow.drop(tiny_props.index, inplace=True)
+
+huge_props = zillow[zillow.sqft > 3300]
+zillow.drop(huge_props.index, inplace=True)
 
 # Drop homes worth over a million
+millions = zillow[zillow.value > 1000000]
 zillow.drop(millions.index, inplace=True)
